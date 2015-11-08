@@ -1,0 +1,77 @@
+module elements
+
+import list
+import option
+import bool
+
+||| A record of this type represents an element, its atomic
+||| mass * 100, its state of matter at room temperature
+||| and a bool indicating metalicity.
+data element = Hydrogen | Helium | Lithium | Beryllium | Boron | Carbon | Nitrogen | Oxygen | Fluorine | Neon
+
+data state = solid | liquid | gas | unknown
+
+data elementRow = mkEleRow element Nat Nat state bool
+
+H: elementRow
+H = mkEleRow Hydrogen 1 101 gas false
+
+He: elementRow
+He = mkEleRow Helium 2 400 gas false
+
+Li: elementRow
+Li = mkEleRow Lithium 3 694 solid true
+
+Be: elementRow
+Be = mkEleRow Beryllium 4 901 solid true
+
+B: elementRow
+B = mkEleRow Boron 5 108 solid true
+
+C: elementRow
+C = mkEleRow Carbon 6 120 solid false
+
+N: elementRow
+N = mkEleRow Nitrogen 7 140 gas false
+
+O: elementRow
+O = mkEleRow Oxygen 8 160 gas false
+
+F: elementRow
+F = mkEleRow Fluorine 9 190 gas false
+
+Ne: elementRow
+Ne = mkEleRow Neon 10 201 gas false
+
+getName: elementRow -> element
+getName (mkEleRow Na Nm An S M) = Na
+
+getNumber: elementRow -> Nat
+getNumber (mkEleRow Na Nm An S M) = Nm
+
+getAtomNum: elementRow -> Nat
+getAtomNum (mkEleRow Na Nm An S M) = An
+
+getState: elementRow -> state
+getState (mkEleRow Na Nm An S M) = S
+
+getMetalicity: elementRow -> bool
+getMetalicity (mkEleRow Na Nm An S M) = M
+
+changeName: elementRow -> element -> elementRow
+changeName (mkEleRow Na Nm An S M) Na' = (mkEleRow Na' Nm An S M)
+
+changeNum: elementRow -> Nat -> elementRow
+changeNum (mkEleRow Na Nm An S M) Nm' = (mkEleRow Na Nm' An S M)
+
+changeAtomNum: elementRow -> Nat -> elementRow
+changeAtomNum (mkEleRow Na Nm An S M) An' = (mkEleRow Na Nm An' S M)
+
+changeState: elementRow -> state -> elementRow
+changeState (mkEleRow Na Nm An S M) S' = (mkEleRow Na Nm An S' M)
+
+changeMetalicity: elementRow -> bool -> elementRow
+changeMetalicity (mkEleRow Na Nm An S M) M' = (mkEleRow Na Nm An S M')
+
+table: list elementRow
+table = (cons H (cons He (cons Li (cons Be (cons B (cons C (cons N (cons O (cons F (cons Ne nil))))))))))

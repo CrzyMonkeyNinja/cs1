@@ -1,0 +1,41 @@
+module list
+
+import pair
+import bool
+import option
+
+data list a = nil | cons a (list a)
+
+infixr 7 ::
+
+data list' a = nil' | (::) a (list' a)
+
+len': list' a -> Nat
+len' nil' = 0
+len' (n::l') = S (len' l')
+
+len: list a -> Nat
+len nil = 0
+len (cons n l') = S (len l')
+
+last: list a -> a
+last (cons n nil) = n
+last (cons n l') = last l'
+
+myindex: list a -> Nat -> a
+myindex (cons n nil) (S m) = n
+myindex (cons n l') Z = n
+myindex (cons n l') (S m) = (myindex l' m)
+
+removeLast: list a -> list a
+removeLast (cons n nil) = nil
+removeLast (cons n l') = (cons n (removeLast l'))
+
+append: list a -> list a -> list a
+append nil l2 = l2
+append l1 nil = l1
+append (cons h l1) l2 = (cons h (append l1 l2))
+
+snoc: a -> list a -> list a
+snoc n nil = (cons n nil)
+snoc n l1 = append l1 (cons n nil)
